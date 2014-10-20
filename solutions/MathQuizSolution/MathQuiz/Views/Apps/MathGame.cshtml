@@ -1,0 +1,28 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MathGame</title>
+</head>
+<body>
+	<div id="math-game">
+		<div id="status"></div>
+		<span id="question"></span>
+		<input type="text" id="answer" />
+		<input type="button" value="Answer" id="give-answer" />
+	</div>
+	<script src="~/Scripts/jquery-2.1.1.js"></script>
+	<script src="~/src/Hypertheory/domain/games/mathGame.js"></script>
+	<script src="~/src/mathGamePlugin.js"></script>
+	<script>
+	
+		$($('#math-game').mathGame);
+	</script>
+
+</body>
+</html>

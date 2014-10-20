@@ -1,0 +1,54 @@
+﻿(function ($) {
+	$.fn.mathGame = function (options) {
+
+		options = options || {};
+		options.domain = options.domain || new Hypertheory.domain.games.MathGame();
+		options.question = $(this).find(options.question || '#question');
+		options.answer = $(this).find(options.answer || '#answer');
+		options.giveAnswer = $(this).find(options.giveAnswer || '#give-answer');
+		options.status = $(this).find(options.status || '#status');
+
+		var game = options.domain;
+		// start the game
+
+		options.question.text(game.getQuestion());
+		options.answer.focus();
+
+		options.giveAnswer.click(function () {
+			var answer = parseFloat(options.answer.val());
+			if (isNaN(answer)) {
+				options.status.text("Enter a number.");
+				options.answer.focus();
+				return;
+			}
+			var status = game.checkStatus(answer);
+			switch (status) {
+				case "right":
+					options.status.text('');
+					options.answer.val('');
+					options.question.text(game.getQuestion());
+					break;
+				case "wrong":
+					options.status.text('Wrong, try again!');
+					break;
+				case "win":
+					options.status.text('Game Over! You Win!');
+					options.giveAnswer.attr("disabled", true);
+					break;
+
+				case "lose":
+					options.status.text('Game Over! You Lose!');
+					options.giveAnswer.attr("disabled", true);
+					break;
+				default:
+					options.status.text('');
+			}
+
+
+		});
+
+
+
+		return this;
+	}
+})(jQuery);
