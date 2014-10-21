@@ -24,6 +24,7 @@ describe("Math Game", function () {
 	readAnswer = finders.getValueReader('#answer');
 	setAnswer = finders.getValueWriter('#answer');
 	readStatus = finders.getTextReader('#status');
+	readCountDown = finders.getTextReader("#countdown");
 		
 
 	beforeEach(function () {
@@ -149,6 +150,34 @@ describe("Math Game", function () {
 			it("focuses the textbox", function() {
 				expect(sut.find(':focus').attr('id')).toBe('answer');
 			});
+		});
+	});
+	describe("Timing out the the game - extra credit", function() {
+		beforeEach(function() {
+			jasmine.clock().install();
+			sut = $('#math-game').mathGame({ domain: domain });
+		});
+		afterEach(function() {
+			jasmine.clock().uninstall();
+		});
+		it("should update the clock", function() {
+			expect(readCountDown()).toBe("3:00");
+		});
+		it("should update on tick", function() {
+			jasmine.clock().tick(1001);
+			expect(readCountDown()).toBe("03:59");
+		});
+		it("should update again", function() {
+			jasmine.clock().tick(2002);
+			expect(readCountDown()).toBe("03:58");
+		});
+		it("should stop at zero", function() {
+			jasmine.clock().tick(1000 * 60 * 3);
+			expect(readCountDown()).toBe("00:00");
+		});
+		it("should change the status", function() {
+			jasmine.clock().tick(1000 * 60 * 3);
+			expect(readStatus()).toBe("Time Up!");	
 		});
 	});
 });
