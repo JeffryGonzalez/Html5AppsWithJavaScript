@@ -161,7 +161,7 @@ describe("Math Game", function () {
 			jasmine.clock().uninstall();
 		});
 		it("should update the clock", function() {
-			expect(readCountDown()).toBe("3:00");
+			expect(readCountDown()).toBe("03:00");
 		});
 		it("should update on tick", function() {
 			jasmine.clock().tick(1001);

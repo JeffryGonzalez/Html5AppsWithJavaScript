@@ -13,7 +13,7 @@
 		var gameIsWonOrLost = false;
 
 		console.log(numberOfMillisecondsLeft);
-		options.countDown.text("3:00");
+		options.countDown.text("03:00");
 
 		var timeOut = window.setInterval(function() {
 			var newValue = "";
